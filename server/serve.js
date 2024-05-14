@@ -1,40 +1,45 @@
-const { MongoClient } = require("mongodb");
 const express = require("express");
+const { MongoClient } = require("mongodb");
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3002; // Use environment variable or default port
 
-const uri = "mongodb+srv://siyabonga95:Siyabonga@100@cluster0.mongodb.net/Survey?retryWrites=true&w=majority";
-const db = "Survey";
+app.use(express.json());
 
-MongoClient.connect(uri, (err, client) => {
-    if (err) {
+const uri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/";
+const db = process.env.DB_NAME || "Survey";
+const collectionName = "SurveyData";
+
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+async function startServer() {
+    try {
+        await client.connect();
+        console.log("Successfully connected to MongoDB");
+
+        const database = client.db(db);
+        const collection = database.collection(collectionName);
+
+        app.post("/surveys", (req, res) => {
+            const surveyData = req.body;
+
+            collection.insertOne(surveyData, (err, result) => {
+                if (err) {
+                    console.error("Failed to insert data", err);
+                    return res.status(500).json({ message: "Error saving survey", error: err });
+                }
+                console.log("Data inserted to database", result.insertedCount);
+                return res.status(201).json({ message: "Survey saved successfully!" });
+            });
+        });
+
+        app.listen(PORT, () => {
+            console.log(`The server is running on port ${PORT}`);
+        });
+    } catch (err) {
         console.error("Failed to connect to MongoDB", err);
-        return;
     }
-    console.log("Successfully connected to MongoDB");
+}
 
-    const databaseConnect = client.db(db);
-    const collection = databaseConnect.collection("Survey");
+startServer();
 
-    const arrayObject = [
-        { name: "Amanda", email: "siyabongazungu95@gmail.com" },
-        { name: "Amanda", email: "siyabongazungu95@gmail.com" }
-    ];
 
-    collection.insertMany(arrayObject, (err, result) => {
-        if (err) {
-            console.error("Failed to insert data", err);
-            return;
-        }
-        console.log("Data inserted to database", result.insertedCount);
-        client.close(); 
-    });
-});
-
-app.get("/", (req, res) => {
-    res.send(`Server is running on port ${PORT}`);
-});
-
-app.listen(PORT, () => {
-    console.log(`The server is running on port ${PORT}`);
-});
