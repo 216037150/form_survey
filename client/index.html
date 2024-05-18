@@ -7,19 +7,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
     <div class="container"> 
         <nav class="navbar">
             <a href="#" id="logo" style="color: black; margin-left: -40px;">_Survey</a>
             <a href="#" id="downloadBtn">FILL OUT SURVEY</a>
-            <a href="#" id="downloadBtn">VIEW SURVEY RESULTS</a>
+            <a href="http://localhost:4000/data.html" id="downloadBtn">VIEW SURVEY RESULTS</a>
         </nav>
         <div class="persolaDetails">
             <div class="paragrap">
                 <p>Personal Details:</p>
             </div>
             <div class="personal-details">
-                <form id="personalForm">
+                <form action="/form" method="POST"> 
                     <label for="fullName" class="labelField">Full Name</label> 
                     <input type="text" name="fullName" id="fullName" class="inputField" required>
                    
@@ -27,11 +26,10 @@
                     <input type="email" name="email" id="email" class="inputField" required>
                    
                     <label for="dateOfBirth" class="labelField">Date of Birth</label> 
-                    <input type="date" name="dateOfBirth" id="dateOfBirth"  class="inputField" required>
+                    <input type="date" name="dateOfBirth" id="dateOfBirth" class="inputField" required>
                    
                     <label for="contact" class="labelField">Contact Number</label> 
-                    <input type="tel" name="contact" id="contact" class="inputField"  required> <br><br>
-
+                    <input type="tel" name="contact" id="contact" class="inputField" required> <br><br>
 
                     <div class="center-container" style="display: flex; margin-right: 30px;">
                         <div>
@@ -52,61 +50,61 @@
                             <label for="other">Other</label>
                         </div>
                     </div>
-                    
 
-        <p>Please rate your level of agreement on  a scale from 1 to 5, with 1 being "Strong agree" and 5 being "Strong disagree"</p>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Strong Agree</th>
-                    <th>Agree</th>
-                    <th>Neutral</th>
-                    <th>Disagree</th>
-                    <th>Strong Disagree</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>I like to watch movies</td>
-                    <td><input type="radio" name="movies" value="strong_agree" required></td>
-                    <td><input type="radio" name="movies" value="agree" required></td>
-                    <td><input type="radio" name="movies" value="neutral" required></td>
-                    <td><input type="radio" name="movies" value="disagree" required></td>
-                    <td><input type="radio" name="movies" value="strong_disagree"required></td>
-                </tr>
-                <tr>
-                    <td>I like to listen to radio</td>
-                    <td><input type="radio" name="radio" value="strong_agree" required></td>
-                    <td><input type="radio" name="radio" value="agree" required></td>
-                    <td><input type="radio" name="radio" value="neutral" required></td>
-                    <td><input type="radio" name="radio" value="disagree" required></td>
-                    <td><input type="radio" name="radio" value="strong_disagree" required></td>
-                </tr>
-                <tr>
-                    <td>I like to eat out</td>
-                    <td><input type="radio" name="eat_out" value="strong_agree" required></td>
-                    <td><input type="radio" name="eat_out" value="agree" required></td>
-                    <td><input type="radio" name="eat_out" value="neutral" required></td>
-                    <td><input type="radio" name="eat_out" value="disagree" required></td>
-                    <td><input type="radio" name="eat_out" value="strong_disagree" required></td>
-                </tr>
-                <tr>
-                    <td>I like to watch TV</td>
-                    <td><input type="radio" name="watch_tv" value="strong_agree" required></td>
-                    <td><input type="radio" name="watch_tv" value="agree" required></td>
-                    <td><input type="radio" name="watch_tv" value="neutral" required></td>
-                    <td><input type="radio" name="watch_tv" value="disagree" required></td>
-                    <td><input type="radio" name="watch_tv" value="strong_disagree" required></td>
-                </tr>
-            </tbody>
-        </table>
-    <div class="submit-btn">
-        <button type="submit" id="btn">SUBMIT</button>
+                    <p>Please rate your level of agreement on  a scale from 1 to 5, with 1 being "Strong agree" and 5 being "Strong disagree"</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Strong Agree</th>
+                                <th>Agree</th>
+                                <th>Neutral</th>
+                                <th>Disagree</th>
+                                <th>Strong Disagree</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>I like to watch movies</td>
+                                <td><input type="radio" name="movies" value="strong_agree" required></td>
+                                <td><input type="radio" name="movies" value="agree" required></td>
+                                <td><input type="radio" name="movies" value="neutral" required></td>
+                                <td><input type="radio" name="movies" value="disagree" required></td>
+                                <td><input type="radio" name="movies" value="strong_disagree" required></td>
+                            </tr>
+                            <tr>
+                                <td>I like to listen to radio</td>
+                                <td><input type="radio" name="radio" value="strong_agree" required></td>
+                                <td><input type="radio" name="radio" value="agree" required></td>
+                                <td><input type="radio" name="radio" value="neutral" required></td>
+                                <td><input type="radio" name="radio" value="disagree" required></td>
+                                <td><input type="radio" name="radio" value="strong_disagree" required></td>
+                            </tr>
+                            <tr>
+                                <td>I like to eat out</td>
+                                <td><input type="radio" name="eat_out" value="strong_agree" required></td>
+                                <td><input type="radio" name="eat_out" value="agree" required></td>
+                                <td><input type="radio" name="eat_out" value="neutral" required></td>
+                                <td><input type="radio" name="eat_out" value="disagree" required></td>
+                                <td><input type="radio" name="eat_out" value="strong_disagree" required></td>
+                            </tr>
+                            <tr>
+                                <td>I like to watch TV</td>
+                                <td><input type="radio" name="watch_tv" value="strong_agree" required></td>
+                                <td><input type="radio" name="watch_tv" value="agree" required></td>
+                                <td><input type="radio" name="watch_tv" value="neutral" required></td>
+                                <td><input type="radio" name="watch_tv" value="disagree" required></td>
+                                <td><input type="radio" name="watch_tv" value="strong_disagree" required></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="submit-btn">
+                        <button type="submit" id="btn">SUBMIT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</form>   
-</div>
-<script src="formValidation.js"></script>
+    <script src="formValidation.js"></script>
 </body>
 </html>
-
