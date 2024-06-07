@@ -7,51 +7,51 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container"> 
+    <div class="container">
         <nav class="navbar">
             <a href="#" id="logo" style="color: black; margin-left: -40px;">_Survey</a>
-            <a href="#" id="downloadBtn">FILL OUT SURVEY</a>
-            <a href="http://localhost:4000/data.html" id="downloadBtn">VIEW SURVEY RESULTS</a>
+            <a href="#" id="fillSurveyBtn">FILL OUT SURVEY</a>
+            <a href="http://localhost:8000/displayData.html" id="viewResultsBtn">VIEW SURVEY RESULTS</a>
         </nav>
-        <div class="persolaDetails">
+        <div class="personalDetails">
             <div class="paragrap">
                 <p>Personal Details:</p>
             </div>
             <div class="personal-details">
-                <form action="/form" method="POST"> 
-                    <label for="fullName" class="labelField">Full Name</label> 
+                <form id="personalForm">
+                    <label for="fullName" class="labelField">Full Name</label>
                     <input type="text" name="fullName" id="fullName" class="inputField" required>
-                   
-                    <label for="email" class="labelField">Email</label> 
+
+                    <label for="email" class="labelField">Email</label>
                     <input type="email" name="email" id="email" class="inputField" required>
-                   
-                    <label for="dateOfBirth" class="labelField">Date of Birth</label> 
+
+                    <label for="dateOfBirth" class="labelField">Date of Birth</label>
                     <input type="date" name="dateOfBirth" id="dateOfBirth" class="inputField" required>
-                   
-                    <label for="contact" class="labelField">Contact Number</label> 
-                    <input type="tel" name="contact" id="contact" class="inputField" required> <br><br>
+
+                    <label for="contact" class="labelField">Contact Number</label>
+                    <input type="tel" name="contact" id="contact" class="inputField" required><br><br>
 
                     <div class="center-container" style="display: flex; margin-right: 30px;">
                         <div>
                             <p>What is your favorite food?</p>
                         </div>
-                    
+
                         <div class="favorite-food">
                             <input type="checkbox" id="pizza" name="food" value="pizza">
                             <label for="pizza">Pizza</label>
-                    
+
                             <input type="checkbox" id="pasta" name="food" value="pasta">
                             <label for="pasta">Pasta</label>
-                    
+
                             <input type="checkbox" id="pap" name="food" value="pap">
                             <label for="pap">Pap and wors</label>
-                    
+
                             <input type="checkbox" id="other" name="food" value="other">
                             <label for="other">Other</label>
                         </div>
                     </div>
 
-                    <p>Please rate your level of agreement on  a scale from 1 to 5, with 1 being "Strong agree" and 5 being "Strong disagree"</p>
+                    <p>Please rate your level of agreement on a scale from 1 to 5, with 1 being "Strong agree" and 5 being "Strong disagree"</p>
                     <table>
                         <thead>
                             <tr>
@@ -106,5 +106,46 @@
         </div>
     </div>
     <script src="formValidation.js"></script>
+    <script>
+        document.getElementById("personalForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const data = {};
+
+            // Collect all form data
+            formData.forEach((value, key) => {
+                if (data[key]) {
+                    if (!Array.isArray(data[key])) {
+                        data[key] = [data[key]];
+                    }
+                    data[key].push(value);
+                } else {
+                    data[key] = value;
+                }
+            });
+
+            // Collect all radio button values
+            const radios = document.querySelectorAll('input[type="radio"]:checked');
+            radios.forEach((radio) => {
+                data[radio.name] = radio.value;
+            });
+
+            fetch("/form", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Survey submitted successfully!");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while submitting the survey.");
+            });
+        });
+    </script>
 </body>
 </html>

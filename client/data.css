@@ -1,0 +1,45 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.container {
+    margin: 2px;
+    height: 550px;
+    
+     padding: 20px;
+}
+
+
+.border {
+    border: 1px rgb(26, 177, 236) solid;
+
+}
+
+.favorite-food{
+    display: flex;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+
+
+/* table styling*/
+table {
+    border-collapse: collapse;
+    padding: 30px;
+}
+th, td {
+    border: 1px solid #d2cdcd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}
+
+
